@@ -123,8 +123,6 @@ python-dotenv==1.1.1
 python-slugify==8.0.4
 pytweening==1.2.0
 pytz==2025.2
-pywin32==310
-pywin32-ctypes==0.2.3
 PyYAML==6.0.2
 readme_renderer==44.0
 reportlab==4.4.2
