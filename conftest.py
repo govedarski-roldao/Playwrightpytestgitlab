@@ -46,3 +46,9 @@ def go_to_new_collection(set_up):
     page.set_default_timeout(3000)
 
     yield page
+
+
+@pytest.fixture
+def home_page(page):
+    page.goto("https://symonstorozhenko.wixsite.com/website-1")
+    return page
