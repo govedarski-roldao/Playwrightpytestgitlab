@@ -2,7 +2,7 @@ from playwright.sync_api import Playwright, sync_playwright, expect, Page
 
 
 def test_run(playwright: Playwright):
-    browser = playwright.chromium.launch(headless=False)
+    browser = playwright.chromium.launch(headless=True)
     context = browser.new_context()
     page = context.new_page()
     page.set_default_timeout(15000)
