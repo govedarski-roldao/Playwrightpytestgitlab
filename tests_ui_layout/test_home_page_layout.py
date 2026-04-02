@@ -2,8 +2,8 @@ from playwright.sync_api import Playwright, sync_playwright, expect, Page
 from pom.shop_woman_elements import ShopWoman
 
 
-def test_about_us_section_verbiage(home_page):
-    shop_woman = ShopWoman(home_page)
+def test_about_us_section_verbiage(login_set_up):
+    shop_woman = ShopWoman(login_set_up)
     expect(shop_woman.celebrating_beauty_header).to_be_visible()
 
 

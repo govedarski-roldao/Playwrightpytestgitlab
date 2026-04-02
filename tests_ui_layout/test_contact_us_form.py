@@ -4,9 +4,9 @@ from playwright.sync_api import Playwright, sync_playwright, expect
 from pom.contact_us_page import ContactUsPage
 
 @pytest.mark.integration
-def test_submit_form(set_up) -> None:
+def test_submit_form(login_set_up) -> None:
     # browser = playwright.chromium.launch(headless=False)
-    page = set_up
+    page = login_set_up
 
     contact_us_page = ContactUsPage(page)
     # page.pause()

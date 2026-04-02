@@ -1,9 +1,9 @@
 import time
 import pytest
 import os
-from sympy import content
 
 PASSWORD = os.environ["PASSWORD"]
+
 
 # try:
 #     PASSWORD = os.environ["PASSWORD"]
@@ -59,6 +59,8 @@ def login_set_up(context_creation):
     # page.wait_for_load_state("networkidle")
     page.set_default_timeout(3000)
     yield page
+    time.sleep(5)
+    page.close()
 
 
 @pytest.fixture()

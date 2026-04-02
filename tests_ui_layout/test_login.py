@@ -1,10 +1,12 @@
 # from playwright.sync_api import Playwright, expect
 #
 #
-# def test_login(playwright: Playwright) -> None:
-#     browser = playwright.chromium.launch(headless=False)
-#     context = browser.new_context()
-#     page = context.new_page()
+from playwright.sync_api import expect
+
+
+def test_login(login_set_up) -> None:
+    page = login_set_up
+    expect(page.get_by_role("link", name="pomidor.png"))
 #     page.goto("https://symonstorozhenko.wixsite.com/website-1")
 #     # page.wait_for_load_state("networkidle")
 #     page.set_default_timeout(10000)
