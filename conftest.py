@@ -4,12 +4,14 @@ import os
 
 PASSWORD = os.environ["PASSWORD"]
 
-
 # try:
 #     PASSWORD = os.environ["PASSWORD"]
 # except KeyError:
 #     import utils.secret_config
 #     PASSWORD = utils.secret_config.PASSWORD
+
+HEADLESS = os.getenv("CI") is not None
+
 
 @pytest.fixture(scope="session")
 def set_up(browser):
@@ -23,7 +25,9 @@ def set_up(browser):
 
 @pytest.fixture(scope="session")
 def context_creation(playwright):
-    browser = playwright.chromium.launch(headless=False, slow_mo=300)
+    browser = playwright.chromium.launch(
+        headless=HEADLESS,
+        slow_mo=300 if not HEADLESS else 0)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://symonstorozhenko.wixsite.com/website-1")
