@@ -7,9 +7,9 @@ def test_about_us_section_verbiage(home_page):
     expect(shop_woman.celebrating_beauty_header).to_be_visible()
 
 
-def test_about_us_section_verbiage_2(set_up):
-    page = set_up
-    page.goto("https://symonstorozhenko.wixsite.com/website-1")
+def test_about_us_section_verbiage_2(login_set_up):
+    page = login_set_up
+    # page.goto("https://symonstorozhenko.wixsite.com/website-1")
 
     shop_woman = ShopWoman(page)
     expect(shop_woman.celebrating_beauty_header).to_be_visible()
