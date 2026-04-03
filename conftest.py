@@ -3,15 +3,14 @@ import pytest
 import os
 
 PASSWORD = os.environ["PASSWORD"]
+HEADLESS = os.getenv("CI") is not None
+
 
 # try:
 #     PASSWORD = os.environ["PASSWORD"]
 # except KeyError:
 #     import utils.secret_config
 #     PASSWORD = utils.secret_config.PASSWORD
-
-HEADLESS = os.getenv("CI") is not None
-
 
 @pytest.fixture(scope="session")
 def set_up(browser):
@@ -50,21 +49,27 @@ def context_creation(playwright):
     page.press("[data-testid='siteMembers.container'] >> input[type='email']", "Tab")
     page.fill("input[type='password']", PASSWORD)
     page.click("[data-testid='submit'] >> [data-testid='buttonElement']")
+    page.wait_for_load_state(timeout=1000)
+    time.sleep(5)
+    context.storage_state(path="state.json")
 
     yield context
     time.sleep(5)
 
 
 @pytest.fixture()
-def login_set_up(context_creation):
-    context = context_creation
+def login_set_up(context_creation, playwright):
+    browser = playwright.chromium.launch(headless=False, slow_mo=200)
+    context = browser.new_context(storage_state="state.json")
     page = context.new_page()
     page.goto("https://symonstorozhenko.wixsite.com/website-1")
     # page.wait_for_load_state("networkidle")
+    # page.pause()
     page.set_default_timeout(3000)
+    assert not page.is_visible("text=Log In")
     yield page
     time.sleep(5)
-    page.close()
+    browser.close()
 
 
 @pytest.fixture()
